@@ -6,9 +6,37 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script type="text/javascript" src="js/jq.js"></script>
+
 </head>
 <body>
- hello world
+<p>2021-10-21 更新</p>
+<p>比如  第一个框输入定金，第二个框输入预售劵后，最后得出总得价格</p>
 
+<label id="LSQ">
+    <p>1. 针对绿山墙预付价格 目前双11 满300 - 90 </p>
+    <input type="text" placeholder="请输入定金" class="deposit" >
+    <input type="text" placeholder="请输入总价" class="total" data-cut="90">
+    <div class="result"></div>
+
+</label>
+<label id="XW">
+    <p>2. 针对西文付预价格 300 - 80 </p>
+    <input type="text" placeholder="请输入定金" class="deposit">
+    <input type="text" placeholder="请输入总价" class="total" data-cut="80">
+    <div class="result"></div>
+
+</label>
+<script>
+    $('.total').on('input', function () {
+        let deposit = parseInt($(this).prev('.deposit').val(), 10)
+        let cutNum = parseInt($(this).attr('data-cut'), 10)
+        if (deposit) {
+            let discount = (300 - cutNum - 45) / 300
+            let total = parseInt($(this).val(), 10)
+            $(this).next('.result').text(parseInt(total * discount + deposit, 10));
+        }
+    })
+</script>
 </body>
 </html>
